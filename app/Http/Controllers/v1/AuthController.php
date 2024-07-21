@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ResponseJson;
 use App\Http\Requests\v1\Auth\LoginRequest;
 use App\Http\Requests\v1\Auth\RegisterRequest;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Http\Services\UserService;
 use App\Repositories\UserAccessToken\UserAccessTokenRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -14,13 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __construct(protected UserRepositoryInterface $userRepository, protected UserAccessTokenRepositoryInterface $accessTokenRepository)
+    public function __construct(protected UserService $userService, protected UserAccessTokenRepositoryInterface $accessTokenRepository)
     {
     }
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $user = $this->userRepository->create($request->validated());
+        $user = $this->userService->createUser($request->validated(), RolesEnum::CUSTOMER);
 
         $token = $this->accessTokenRepository->generate($user->id);
 

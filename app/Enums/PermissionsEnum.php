@@ -8,28 +8,12 @@ enum PermissionsEnum: string
 {
     use EnumToArray;
 
-    case SELLER_STORE = "seller_store";
-
-    case SELLER_UPDATE = "update_seller";
-
-    case SELLER_DELETE = "seller_delete";
-
-    case SELLER_SHOW = "seller_show";
-
-    case CUSTOMER_STORE = "customer_store";
-
-    case CUSTOMER_UPDATE = "customer_update";
-
-    case CUSTOMER_DELETE = "customer_delete";
-
-    case CUSTOMER_SHOW = "customer_show";
-
-    case ADMIN_STORE = "admin_store";
-
-    case ADMIN_UPDATE = "admin_update";
-
-    case ADMIN_DELETE = "admin_delete";
-
-    case ADMIN_SHOW = "admin_show";
-
+    case USER_SHOW = 'user.show';
+    case USER_UPDATE = 'user.update';
+    case USER_DELETE = 'user.delete';
+    case SELLER_SHOW = 'seller.show';
+    case SELLER_UPDATE = 'seller.update';
+    case SELLER_DELETE = 'seller.delete';
+    case PRODUCT_UPDATE = 'product.update';
+    case PRODUCT_DELETE = 'product.delete';
 }

@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->group('api', [
             \App\Http\Middleware\EnsureJsonResponse::class,
         ]);
+
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\Admin::class,
+            'seller' => \App\Http\Middleware\Seller::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {
