@@ -1,0 +1,47 @@
+FROM php:8.2-fpm
+
+WORKDIR /var/www/html
+
+ARG user
+
+#### system dependencies ####
+RUN echo "Acquire::Check-Valid-Until "false";\nAcquire::Check-Date "false";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
+RUN ln -snf /usr/share/zoneinfo/Asia/Tehran /etc/localtime \
+	&& echo Asia/Tehran > /etc/timezone
+
+RUN apt-get update --fix-missing -y && apt-get upgrade -y && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    zlib1g-dev \
+    libonig-dev \
+    libssl-dev \
+    libzip-dev  \
+    build-essential \
+    zip \
+    unzip \
+    nano \
+    htop \
+    procps
+
+RUN apt-get install -y libcurl4-openssl-dev
+RUN docker-php-ext-install curl
+
+#### SSL ####
+RUN apt-get install -y --no-install-recommends openssl
+
+RUN apt-get update
+
+##### PHP extensions ####
+RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+
+#####  MYSQL client #####
+RUN apt-get install -y default-mysql-client
+
+#### System user to run composer and artisan ####
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN mkdir /var/www/.composer \
+    && chown $user:$user /var/www/.composer
+
+
+RUN echo "output_buffering=On" >> /usr/local/etc/php/conf.d/docker-fpm.ini
