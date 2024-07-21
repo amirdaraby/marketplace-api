@@ -78,4 +78,16 @@ class AccessTokenGuard implements Guard
 
         return false;
     }
+
+    public function attempt(array $credentials = [], bool $remember = false): bool
+    {
+        $user = $this->provider->retrieveByCredentials($credentials);
+
+        if ($user && $this->provider->validateCredentials($user, $credentials)) {
+            $this->user = $user;
+            return true;
+        }
+
+        return false;
+    }
 }
