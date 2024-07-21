@@ -54,7 +54,7 @@ class AccessTokenGuard implements Guard
             $token = $this->request->bearerToken();
         }
 
-        return $token;
+        return $token ?? '';
     }
 
     /**
