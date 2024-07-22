@@ -13,11 +13,18 @@ class UserService
     {
     }
 
-    public function createUser(array $creditinals, RolesEnum $role)
+    public function createUser(array $creditinals, RolesEnum $role, int $locationX, int $locationY)
     {
         $role = $this->roleRepository->findByName($role->value);
 
         $creditinals['role_id'] = $role->id;
+
+        $user = $this->userRepository->create($creditinals);
+
+        $user->location()->create([
+            'x' => $locationX,
+            'y' => $locationY,
+        ]);
 
         return $this->userRepository->create($creditinals);
     }

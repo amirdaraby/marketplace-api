@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Requests\v1\User;
+namespace App\Http\Requests\v1\Product;
 
-use App\Enums\RolesEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Enum;
 
 class StoreRequest extends FormRequest
 {
@@ -24,12 +22,8 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'role' => ['required', 'string', new Enum(RolesEnum::class)],
-            'location_x' => ['required', 'integer'],
-            'location_y' => ['required', 'integer'],
+            'name' => ['required', 'string'],
+            'market_id' => ['required', 'exists:markets,id'],
         ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\v1\Auth;
+namespace App\Http\Requests\v1\Market;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'location_x' => ['required', 'integer'],
-            'location_y' => ['required', 'integer'],
+            'name' => ['required', 'string'],
         ];
     }
 }

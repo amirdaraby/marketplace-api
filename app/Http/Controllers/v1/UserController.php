@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\v1;
 
 use App\Enums\PermissionsEnum;
-use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ResponseJson;
 use App\Http\Requests\v1\User\StoreRequest;
@@ -11,7 +10,6 @@ use App\Http\Requests\v1\User\UpdateRequest;
 use App\Http\Services\UserService;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,7 +28,7 @@ class UserController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        $user = $this->userService->createUser($request->except('role'), $request->get('role'));
+        $user = $this->userService->createUser($request->except('role'), $request->get('role'), $request->validated('location_x'), $request->validated('location_y'));
 
         return ResponseJson::success($user, "User created", Response::HTTP_CREATED);
     }

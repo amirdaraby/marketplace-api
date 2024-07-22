@@ -21,7 +21,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $user = $this->userService->createUser($request->validated(), RolesEnum::CUSTOMER);
+        $user = $this->userService->createUser($request->except('role', 'location_x', 'location_y'), RolesEnum::CUSTOMER, $request->validated('location_x'), $request->validated('location_y'));
 
         $token = $this->accessTokenRepository->generate($user->id);
 

@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class Location extends Model
 {
     use HasFactory;
 
-    protected $table = 'permissions';
-
-    public $timestamps = false;
+    protected $table = 'locations';
 
     protected $fillable = [
-        'name'
+        'x',
+        'y',
+        'locational_type',
+        'locational_id',
     ];
 
 

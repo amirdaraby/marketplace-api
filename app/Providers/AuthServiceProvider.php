@@ -36,5 +36,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(PermissionsEnum::USER_SHOW->value, [UserPolicy::class, 'show']);
         Gate::define(PermissionsEnum::USER_UPDATE->value, [UserPolicy::class, 'update']);
         Gate::define(PermissionsEnum::USER_DELETE->value, [UserPolicy::class, 'delete']);
+
+        Gate::define(PermissionsEnum::SELLER_UPDATE->value, [Policy::class, 'default']);
+        Gate::define(PermissionsEnum::SELLER_DELETE->value, [Policy::class, 'default']);
     }
 }
